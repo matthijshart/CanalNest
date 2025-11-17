@@ -1,1 +1,1396 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <title>CanalNest – Move-in ready interieur voor expats in Amsterdam</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Hippe Amsterdamse startup: volledig ingerichte appartementen voor expats, van bank tot bureaustoel. Move-in ready in 48 uur." />
+
+  <style>
+    /* 
+      Basisstijl – Scandinavisch minimalisme:
+      - veel witruimte
+      - zachte kleuren
+      - strakke typografie
+      - subtiele animaties
+    */
+
+    :root {
+      --bg: #f5f5f2;
+      --bg-alt: #ffffff;
+      --accent: #0f766e;      /* diepgroen / teal */
+      --accent-soft: #e7f3f1;
+      --accent-soft-2: #f3f6f5;
+      --accent-warm: #d97757; /* warme terracotta touch */
+      --text: #111827;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.08);
+      --shadow-subtle: 0 10px 30px rgba(15, 23, 42, 0.06);
+      --transition-fast: 180ms ease-out;
+      --transition-med: 240ms ease-out;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      color: var(--text);
+      background-color: var(--bg);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      line-height: 1.6;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Top bar / nav */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(16px);
+      background: linear-gradient(
+        to bottom,
+        rgba(245, 245, 242, 0.96),
+        rgba(245, 245, 242, 0.92),
+        transparent
+      );
+      border-bottom: 1px solid rgba(229, 231, 235, 0.7);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 1.5rem 0.9rem;
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .logo-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 30% 70% 70% 30%;
+      background: radial-gradient(circle at 20% 0%, #f9fafb, #0f766e);
+      box-shadow: 0 10px 22px rgba(15, 118, 110, 0.35);
+    }
+
+    .logo-text-main {
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      font-size: 0.98rem;
+      text-transform: uppercase;
+    }
+
+    .logo-text-sub {
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+      font-size: 0.9rem;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      position: relative;
+      padding-bottom: 0.15rem;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -0.1rem;
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      transition: width var(--transition-fast);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+    }
+
+    .nav-cta-phone {
+      display: none;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.6rem 1.3rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid transparent;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      background: transparent;
+      transition:
+        background-color var(--transition-med),
+        color var(--transition-med),
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        border-color var(--transition-fast);
+    }
+
+    .btn-primary {
+      background: radial-gradient(circle at top left, #34d399, #0f766e);
+      color: #ffffff;
+      box-shadow: 0 16px 40px rgba(15, 118, 110, 0.35);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 46px rgba(15, 118, 110, 0.42);
+    }
+
+    .btn-ghost {
+      border-color: rgba(148, 163, 184, 0.5);
+      background: rgba(255, 255, 255, 0.4);
+      color: var(--text);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      background: #ffffff;
+    }
+
+    /* Mobile nav button */
+    .nav-toggle {
+      display: none;
+      border: none;
+      background: transparent;
+      padding: 0.25rem;
+      cursor: pointer;
+    }
+
+    .nav-toggle-line {
+      width: 18px;
+      height: 2px;
+      border-radius: 999px;
+      background: #111827;
+      transition: transform var(--transition-fast),
+        opacity var(--transition-fast),
+        translate var(--transition-fast);
+    }
+
+    .nav-toggle-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 4.5rem 0 3.75rem;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 3.5rem;
+      align-items: center;
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.2rem 0.7rem 0.2rem 0.25rem;
+      border-radius: var(--radius-pill);
+      background: rgba(15, 118, 110, 0.06);
+      color: var(--muted);
+      font-size: 0.78rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .hero-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.25);
+    }
+
+    .hero-kicker span.highlight {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .hero-title {
+      font-size: clamp(2.1rem, 3.2vw, 3.1rem);
+      line-height: 1.07;
+      letter-spacing: -0.04em;
+      margin: 0 0 1rem;
+    }
+
+    .hero-title span.accent {
+      color: var(--accent);
+    }
+
+    .hero-subtitle {
+      max-width: 32rem;
+      font-size: 0.98rem;
+      color: var(--muted);
+      margin-bottom: 1.4rem;
+    }
+
+    .hero-subtitle strong {
+      color: #374151;
+      font-weight: 500;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      align-items: center;
+      margin-bottom: 1.3rem;
+    }
+
+    .hero-note {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .hero-note span {
+      font-weight: 500;
+      color: var(--accent);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1.8rem;
+      margin-top: 1.1rem;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .hero-pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent-warm);
+    }
+
+    .hero-stat {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .hero-stat strong {
+      display: block;
+      font-size: 1.1rem;
+      color: #111827;
+    }
+
+    .hero-right {
+      position: relative;
+    }
+
+    .hero-card {
+      border-radius: 26px;
+      background: radial-gradient(circle at 0 0, #ffffff, #f3f4f6);
+      box-shadow: var(--shadow-soft);
+      padding: 1.6rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .hero-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .hero-card-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #4b5563;
+    }
+
+    .hero-tag {
+      font-size: 0.7rem;
+      border-radius: 999px;
+      padding: 0.25rem 0.75rem;
+      background: #0f766e;
+      color: #ecfeff;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+    }
+
+    .hero-card-body {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 1.2rem;
+      align-items: flex-start;
+    }
+
+    .hero-card-main {
+      font-size: 0.9rem;
+      color: #4b5563;
+    }
+
+    .hero-card-main strong {
+      color: #111827;
+      font-weight: 600;
+    }
+
+    .hero-card-meta {
+      font-size: 0.8rem;
+      color: #6b7280;
+    }
+
+    .hero-card-meta span.label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #9ca3af;
+      display: block;
+    }
+
+    .hero-card-meta span.value {
+      display: block;
+      margin-top: 0.15rem;
+    }
+
+    .hero-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 0.3rem;
+    }
+
+    .hero-card-price {
+      font-size: 0.9rem;
+      color: #111827;
+    }
+
+    .hero-card-price strong {
+      font-size: 1.1rem;
+    }
+
+    .hero-card-badge {
+      font-size: 0.75rem;
+      padding: 0.3rem 0.8rem;
+      border-radius: var(--radius-pill);
+      background: var(--accent-soft);
+      color: #065f46;
+    }
+
+    .hero-floating {
+      position: absolute;
+      right: -18px;
+      bottom: -26px;
+      width: 170px;
+      padding: 0.8rem 1rem;
+      border-radius: 20px;
+      background: #111827;
+      color: #f9fafb;
+      font-size: 0.78rem;
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .hero-floating strong {
+      display: block;
+      font-size: 0.8rem;
+      margin-bottom: 0.15rem;
+    }
+
+    .hero-floating span {
+      color: #9ca3af;
+      font-size: 0.72rem;
+    }
+
+    /* Section base styles */
+    .section {
+      padding: 3.5rem 0;
+    }
+
+    .section-header {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-bottom: 2.3rem;
+      max-width: 42rem;
+    }
+
+    .section-kicker {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: #9ca3af;
+    }
+
+    .section-title {
+      font-size: 1.4rem;
+      letter-spacing: -0.03em;
+    }
+
+    .section-subtitle {
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+
+    /* Features */
+    .features {
+      border-top: 1px solid rgba(209, 213, 219, 0.7);
+      border-bottom: 1px solid rgba(209, 213, 219, 0.7);
+      background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.8),
+        rgba(243, 244, 246, 0.9)
+      );
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.5rem;
+    }
+
+    .feature-card {
+      border-radius: var(--radius-lg);
+      background: #ffffff;
+      padding: 1.4rem 1.35rem 1.3rem;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+      border: 1px solid rgba(229, 231, 235, 0.9);
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .feature-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 14px;
+      background: #111827;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      color: #f9fafb;
+    }
+
+    .feature-title {
+      font-size: 0.98rem;
+      font-weight: 500;
+    }
+
+    .feature-text {
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+
+    .feature-foot {
+      font-size: 0.78rem;
+      color: #9ca3af;
+      margin-top: 0.15rem;
+    }
+
+    /* How it works */
+    .how-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 2.4rem;
+    }
+
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 1.15rem;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.85rem 1rem;
+      align-items: flex-start;
+    }
+
+    .step-index {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      border: 1px solid rgba(55, 65, 81, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      color: #4b5563;
+    }
+
+    .step-title {
+      font-size: 0.92rem;
+      font-weight: 500;
+    }
+
+    .step-text {
+      font-size: 0.86rem;
+      color: var(--muted);
+      grid-column: 2 / span 1;
+    }
+
+    .how-card {
+      border-radius: 24px;
+      padding: 1.5rem;
+      background: #111827;
+      color: #e5e7eb;
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .how-tagline {
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #9ca3af;
+    }
+
+    .how-stat-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.6rem;
+    }
+
+    .how-stat-label {
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+
+    .how-stat-value {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .how-note {
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+
+    /* Pricing */
+    .pricing {
+      background: var(--bg-alt);
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.5rem;
+    }
+
+    .pricing-card {
+      border-radius: 22px;
+      padding: 1.6rem 1.4rem;
+      border: 1px solid rgba(209, 213, 219, 0.9);
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.05);
+    }
+
+    .pricing-card.is-highlight {
+      border-color: rgba(15, 118, 110, 0.7);
+      box-shadow: 0 18px 48px rgba(15, 23, 42, 0.12);
+      transform: translateY(-4px);
+    }
+
+    .pricing-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.6rem;
+    }
+
+    .pricing-name {
+      font-size: 0.98rem;
+      font-weight: 500;
+    }
+
+    .pricing-tag {
+      font-size: 0.7rem;
+      padding: 0.3rem 0.7rem;
+      border-radius: var(--radius-pill);
+      background: var(--accent-soft-2);
+      color: #065f46;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .pricing-price {
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
+
+    .pricing-price span {
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: var(--muted);
+    }
+
+    .pricing-desc {
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+
+    .pricing-list {
+      list-style: none;
+      margin: 0.4rem 0 0.9rem;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      font-size: 0.85rem;
+      color: #4b5563;
+    }
+
+    .pricing-list li::before {
+      content: "–";
+      margin-right: 0.35rem;
+      color: #9ca3af;
+    }
+
+    /* CTA / contact */
+    .cta {
+      padding-bottom: 4rem;
+    }
+
+    .cta-inner {
+      border-radius: 24px;
+      padding: 1.8rem 1.6rem;
+      background: radial-gradient(circle at top left, #0f766e, #111827);
+      color: #f9fafb;
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .cta-title {
+      font-size: 1.4rem;
+      letter-spacing: -0.04em;
+      margin-bottom: 0.4rem;
+    }
+
+    .cta-text {
+      font-size: 0.9rem;
+      color: #d1d5db;
+      max-width: 30rem;
+    }
+
+    .cta-form {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) auto;
+      gap: 0.6rem;
+      align-items: center;
+    }
+
+    .input {
+      width: 100%;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      padding: 0.65rem 0.9rem;
+      font-size: 0.85rem;
+      background: rgba(15, 23, 42, 0.4);
+      color: #f9fafb;
+      outline: none;
+    }
+
+    .input::placeholder {
+      color: #9ca3af;
+    }
+
+    .input:focus {
+      border-color: #a7f3d0;
+      box-shadow: 0 0 0 1px rgba(45, 212, 191, 0.8);
+    }
+
+    .cta-footnote {
+      font-size: 0.75rem;
+      color: #9ca3af;
+      margin-top: 0.4rem;
+    }
+
+    /* Footer */
+    .footer {
+      border-top: 1px solid rgba(209, 213, 219, 0.8);
+      padding: 1.6rem 0 1.8rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .footer-links a {
+      color: #9ca3af;
+    }
+
+    /* Responsive */
+    @media (max-width: 960px) {
+      .hero-inner {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 2.4rem;
+      }
+
+      .hero-right {
+        order: -1;
+      }
+
+      .hero-floating {
+        right: 12px;
+      }
+
+      .features-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .how-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .pricing-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .cta-inner {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav-inner {
+        padding-inline: 1.1rem;
+      }
+
+      .nav-links,
+      .nav-cta {
+        display: none;
+      }
+
+      .nav-toggle {
+        display: inline-flex;
+      }
+
+      .nav-mobile {
+        display: none;
+        padding: 0 1.5rem 1rem;
+        border-top: 1px solid rgba(229, 231, 235, 0.8);
+        background: rgba(245, 245, 242, 0.98);
+      }
+
+      .nav-mobile-inner {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+        padding-top: 0.8rem;
+      }
+
+      .nav-mobile a {
+        font-size: 0.9rem;
+        color: #4b5563;
+      }
+
+      .nav-mobile .btn {
+        width: 100%;
+        justify-content: center;
+        margin-top: 0.5rem;
+      }
+
+      .nav.is-open .nav-mobile {
+        display: block;
+      }
+
+      .nav.is-open .nav-toggle-line:nth-child(1) {
+        transform: translateY(3px) rotate(45deg);
+      }
+
+      .nav.is-open .nav-toggle-line:nth-child(2) {
+        opacity: 0;
+      }
+
+      .nav.is-open .nav-toggle-line:nth-child(3) {
+        transform: translateY(-3px) rotate(-45deg);
+      }
+
+      .hero {
+        padding-top: 3.2rem;
+      }
+
+      .hero-title {
+        font-size: 2rem;
+      }
+
+      .hero-card {
+        padding: 1.3rem 1.2rem;
+      }
+
+      .hero-card-body {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .features-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .pricing-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .cta-form {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<div class="page">
+
+  <!-- NAVBAR -->
+  <header class="nav" id="top">
+    <div class="nav-inner">
+      <a href="#top" class="logo">
+        <div class="logo-mark" aria-hidden="true"></div>
+        <div>
+          <div class="logo-text-main">CanalNest</div>
+          <div class="logo-text-sub">Amsterdam • Interiors</div>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#features">Waarom CanalNest</a>
+        <a href="#how">Zo werkt het</a>
+        <a href="#pricing">Pakketten</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="nav-cta">
+        <span class="nav-cta-phone">of bel +31 (0)20 000 0000</span>
+        <button class="btn btn-ghost" type="button">NL / EN</button>
+        <a href="#contact" class="btn btn-primary">Plan een call</a>
+      </div>
+
+      <!-- Mobile toggle -->
+      <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="false">
+        <div class="nav-toggle-inner">
+          <span class="nav-toggle-line"></span>
+          <span class="nav-toggle-line"></span>
+          <span class="nav-toggle-line"></span>
+        </div>
+      </button>
+    </div>
+
+    <!-- Mobile menu -->
+    <div class="nav-mobile" aria-label="Mobile menu">
+      <div class="nav-mobile-inner">
+        <a href="#features">Waarom CanalNest</a>
+        <a href="#how">Zo werkt het</a>
+        <a href="#pricing">Pakketten</a>
+        <a href="#contact">Contact</a>
+        <button class="btn btn-ghost" type="button">NL / EN</button>
+        <a href="#contact" class="btn btn-primary">Plan een call</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-inner">
+          <div class="hero-left">
+            <div class="hero-kicker">
+              <span class="hero-dot"></span>
+              <span>Voor expats & remote workers</span>
+              <span class="highlight">Move-in ready in 48 uur</span>
+            </div>
+
+            <h1 class="hero-title">
+              <span class="accent">Volledig ingericht</span> wonen
+              in Amsterdam,<br />zonder iets te kopen.
+            </h1>
+
+            <p class="hero-subtitle">
+              CanalNest is je <strong>interieur-as-a-service</strong>:
+              complete inrichting voor 3–24 maanden. Bank, bed,
+              bureaustoel – wij regelen alles. Jij opent alleen de deur.
+            </p>
+
+            <div class="hero-cta-row">
+              <a href="#contact" class="btn btn-primary">
+                Ontvang een voorstel binnen 24 uur
+              </a>
+              <a href="#how" class="btn btn-ghost">
+                Bekijk hoe het werkt
+              </a>
+            </div>
+
+            <p class="hero-note">
+              <span>Geen gedoe</span> met IKEA, Marktplaats of verhuisdozen.
+            </p>
+
+            <div class="hero-meta">
+              <div class="hero-pill">
+                <span class="hero-pill-dot"></span>
+                <span>Maandelijks opzegbaar na je minimumtermijn</span>
+              </div>
+              <div class="hero-stat">
+                <strong>3–24 mnd</strong>
+                flexibele looptijden
+              </div>
+              <div class="hero-stat">
+                <strong>2 steden</strong>
+                Amsterdam & omgeving
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-right" aria-hidden="true">
+            <div class="hero-card">
+              <div class="hero-card-header">
+                <div>
+                  <div class="hero-card-title">Example pakket</div>
+                  <div class="hero-card-main">
+                    1-bedroom appartement in De Pijp,
+                    compleet ingericht met
+                    <strong>bank, bed, eettafel, bureau, verlichting</strong>.
+                  </div>
+                </div>
+                <div class="hero-tag">Move-in ready</div>
+              </div>
+
+              <div class="hero-card-body">
+                <div class="hero-card-meta">
+                  <span class="label">Voor wie</span>
+                  <span class="value">Expat (single of couple) voor 6–12 maanden</span>
+                </div>
+                <div class="hero-card-meta">
+                  <span class="label">Inclusief</span>
+                  <span class="value">
+                    Montage, styling, ophalen & verplaatsing
+                    bij een volgende woning in Amsterdam.
+                  </span>
+                </div>
+              </div>
+
+              <div class="hero-card-footer">
+                <div class="hero-card-price">
+                  <strong>€210</strong> <span>/ maand</span><br />
+                  <small style="color:#6b7280;">bij 6 maanden looptijd</small>
+                </div>
+                <div class="hero-card-badge">
+                  Geen aankoop, geen opslag, geen verkoopstress.
+                </div>
+              </div>
+            </div>
+
+            <div class="hero-floating">
+              <strong>“I landed on Monday.<br />On Wednesday it felt like home.”</strong>
+              <span>– Lara, UX designer uit Berlijn</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="section features" id="features">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-kicker">Waarom CanalNest</div>
+          <h2 class="section-title">Scandi-stil, Amsterdamse pragmatiek.</h2>
+          <p class="section-subtitle">
+            Minimalistisch design, afgestemd op kleine Amsterdamse appartementen,
+            steile trappen en drukke agenda’s. Jij focust op je nieuwe baan;
+            wij fixen de rest.
+          </p>
+        </div>
+
+        <div class="features-grid">
+          <article class="feature-card">
+            <div class="feature-icon">48</div>
+            <h3 class="feature-title">Binnen 48 uur ingericht</h3>
+            <p class="feature-text">
+              Je kiest een pakket, deelt je plattegrond en gewenste startdatum.
+              Wij leveren, monteren en stylen binnen twee dagen na bevestiging.
+            </p>
+            <div class="feature-foot">Ideaal bij last-minute housing deals.</div>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon">⚖</div>
+            <h3 class="feature-title">Geen assets, alleen comfort</h3>
+            <p class="feature-text">
+              Geen grote aankopen, geen Marktplaats-drama bij vertrek.
+              Je betaalt alleen voor de maanden waarin je echt woont.
+            </p>
+            <div class="feature-foot">Perfect voor 3–24 maanden stays.</div>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon">☕</div>
+            <h3 class="feature-title">Scandi look, warm gevoel</h3>
+            <p class="feature-text">
+              Licht hout, rustige kleuren, zachte stoffen.
+              Klaar voor je eerste kop koffie met uitzicht op de gracht.
+            </p>
+            <div class="feature-foot">Design zonder overdreven “designprijzen”.</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="section" id="how">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-kicker">Zo werkt het</div>
+          <h2 class="section-title">Van sleutel naar thuis in drie stappen.</h2>
+          <p class="section-subtitle">
+            Geen projectmanagement nodig. Jij deelt je huurcontract en
+            voorkeursstijl, wij doen de rest – van meubelkeuze tot schroefje A in gat B.
+          </p>
+        </div>
+
+        <div class="how-grid">
+          <div class="steps">
+            <div class="step">
+              <div class="step-index">1</div>
+              <div class="step-title">Kies je looptijd & pakket</div>
+              <p class="step-text">
+                Kies een basis, standaard of premiumpakket en selecteer
+                3, 6, 12 of 24 maanden. Je kunt later altijd upgraden
+                (bijvoorbeeld een home-office addon toevoegen).
+              </p>
+            </div>
+
+            <div class="step">
+              <div class="step-index">2</div>
+              <div class="step-title">Stuur je adres & plattegrond</div>
+              <p class="step-text">
+                We bekijken de ruimte (en de trap) en maken een layout
+                die werkt voor Amsterdamse proporties. We stemmen
+                aflevermoment en toegang met je af.
+              </p>
+            </div>
+
+            <div class="step">
+              <div class="step-index">3</div>
+              <div class="step-title">Move-in, log in, breathe out</div>
+              <p class="step-text">
+                Je komt thuis in een volledig ingerichte ruimte.
+                Mocht je later verhuizen binnen Amsterdam, verhuizen
+                we je CanalNest-interieur gewoon met je mee.
+              </p>
+            </div>
+          </div>
+
+          <aside class="how-card">
+            <div class="how-tagline">Ontworpen voor expat-realiteit</div>
+            <p>
+              Je denkt in projecten en deadlines, niet in
+              kastenmonteren en matrassen sjouwen. Daarom is CanalNest
+              opgezet als een subscription op “thuis”.
+            </p>
+
+            <div class="how-stat-row">
+              <div>
+                <div class="how-stat-label">Gemiddelde setup tijd</div>
+                <div class="how-stat-value">&lt; 3 uur</div>
+              </div>
+              <div>
+                <div class="how-stat-label">Minimumduur</div>
+                <div class="how-stat-value">3 maanden</div>
+              </div>
+            </div>
+
+            <p class="how-note">
+              Employer budget? We sturen desgewenst een nette factuur
+              direct naar je werkgever of relocation agency.
+            </p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="section pricing" id="pricing">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-kicker">Pakketten</div>
+          <h2 class="section-title">Kies de vibe, wij vullen de ruimte.</h2>
+          <p class="section-subtitle">
+            Alle prijzen zijn indicatief en op basis van een start in Amsterdam.
+            Exacte prijzen hangen af van woningtype, locatie en looptijd.
+          </p>
+        </div>
+
+        <div class="pricing-grid">
+          <article class="pricing-card">
+            <header class="pricing-header">
+              <div>
+                <h3 class="pricing-name">Studio Basic</h3>
+                <p class="pricing-desc">
+                  Voor compacte studio’s en pied-à-terres.
+                </p>
+              </div>
+              <span class="pricing-tag">Start</span>
+            </header>
+
+            <div class="pricing-price">
+              €120 <span>/ maand</span>
+            </div>
+
+            <ul class="pricing-list">
+              <li>Bed + matras (140 cm)</li>
+              <li>Eettafel + 2 stoelen</li>
+              <li>Kledingrek / compacte kast</li>
+              <li>Basis verlichting en vloerkleed</li>
+            </ul>
+
+            <button class="btn btn-ghost" type="button">
+              Vraag exact voorstel
+            </button>
+          </article>
+
+          <article class="pricing-card is-highlight">
+            <header class="pricing-header">
+              <div>
+                <h3 class="pricing-name">City Comfort</h3>
+                <p class="pricing-desc">
+                  Meest gekozen voor 1-bed woningen in de binnenstad.
+                </p>
+              </div>
+              <span class="pricing-tag">Meest gekozen</span>
+            </header>
+
+            <div class="pricing-price">
+              €190 <span>/ maand</span>
+            </div>
+
+            <ul class="pricing-list">
+              <li>Comfortabele bank + salontafel</li>
+              <li>Bed + matras (160 cm) & kast</li>
+              <li>Eettafel + 4 stoelen</li>
+              <li>Verlichting, textiel, decoratie</li>
+              <li>Optie: home-office addon</li>
+            </ul>
+
+            <button class="btn btn-primary" type="button">
+              Plan een korte intake
+            </button>
+          </article>
+
+          <article class="pricing-card">
+            <header class="pricing-header">
+              <div>
+                <h3 class="pricing-name">Hybrid Remote</h3>
+                <p class="pricing-desc">
+                  Voor wie thuis werkt alsof het een studio-office is.
+                </p>
+              </div>
+              <span class="pricing-tag">Work mode</span>
+            </header>
+
+            <div class="pricing-price">
+              €240 <span>/ maand</span>
+            </div>
+
+            <ul class="pricing-list">
+              <li>Alles uit City Comfort</li>
+              <li>Ergonomische bureaustoel</li>
+              <li>Ruim bureau & bureaulamp</li>
+              <li>Extra kabelmanagement & opslag</li>
+            </ul>
+
+            <button class="btn btn-ghost" type="button">
+              Bespreek mogelijkheden
+            </button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA / CONTACT -->
+    <section class="section cta" id="contact">
+      <div class="container">
+        <div class="cta-inner">
+          <div>
+            <h2 class="cta-title">Klaar voor een zacht landing in Amsterdam?</h2>
+            <p class="cta-text">
+              Laat je e-mail en gewenste aankomstdatum achter.
+              We sturen je binnen 24 uur een concreet voorstel met 1–2 pakketten
+              die passen bij jouw woning en plannen.
+            </p>
+          </div>
+
+          <div>
+            <!-- 
+              Hier kun je later een echte form action / JS aan koppelen.
+              Nu is het puur visueel.
+            -->
+            <form class="cta-form">
+              <input
+                class="input"
+                type="email"
+                name="email"
+                placeholder="jij@company.com"
+                autocomplete="email"
+                required
+              />
+              <button class="btn btn-primary" type="submit">
+                Verstuur
+              </button>
+            </form>
+            <p class="cta-footnote">
+              Of mail ons direct: <strong>hello@canalnest.amsterdam</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <span>© <span id="year"></span> CanalNest Amsterdam. Alle rechten voorbehouden.</span>
+        <div class="footer-links">
+          <a href="#top">Terug naar boven</a>
+          <a href="#">Privacy</a>
+          <a href="#">Voor partners</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  // Kleine JS voor:
+  // - mobiel menu toggle
+  // - dynamisch jaartal in footer
+
+  (function () {
+    const nav = document.querySelector(".nav");
+    const toggle = document.querySelector(".nav-toggle");
+
+    if (toggle && nav) {
+      toggle.addEventListener("click", () => {
+        const isOpen = nav.classList.toggle("is-open");
+        toggle.setAttribute("aria-expanded", String(isOpen));
+      });
+    }
+
+    const yearSpan = document.getElementById("year");
+    if (yearSpan) {
+      yearSpan.textContent = new Date().getFullYear();
+    }
+  })();
+</script>
+
+</body>
+</html>
 
